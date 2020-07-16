@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "krawlr": "^1.0.3"
+    "krawlr": "^1.1.3"
   }
 }

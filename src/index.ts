@@ -1,26 +1,42 @@
-import {Crawler, DataStore} from 'krawlr'
+import { Crawler, DataStore } from 'krawlr'
 import * as puppeteer from 'puppeteer'
 
-import { WatchTimeline } from './Activities/WatchTimeline'
+import { TweetStats } from './Activities/TweetStats'
+import { ExtractTweets } from './Activities/ExtractTweets'
 ;(async () => {
     // * Initialize Crawler Instance
-    const TwitterCrawler = new Crawler(await puppeteer.launch({headless: false}))
+    const TwitterCrawler = new Crawler(await puppeteer.launch({ headless: false, userDataDir: '' }))
 
-    // * Initialize instance of WatchTimeline Activity
-    const WatchStupidCounter = new WatchTimeline({
-            cron: '*/30 * * * * *',
-            callback: async data => {
-                console.log(data[0])
-            }
+    // // * Instantiate Activity
+    // const tweetStats = new TweetStats(
+    //     {
+    //         cron: null,
+    //         callback: delivery => {
+    //             console.log(delivery.tweet)
+    //             console.log(`Replies ${delivery.replies.length}`)
+    //         }
+    //     },
+    //     new DataStore(), // * Data Store is key,value store for storing params
+    //     {
+    //         username: 'chicagobulls',
+    //         tweetID: '1280245134609678336',
+    //         scrollIntervalY: 200,
+    //         scrollIntervalMS: 150
+    //     }
+    // )
+
+    // // * Schedule activity
+    // await TwitterCrawler.schedule(tweetStats)
+
+    const extractTweets = new ExtractTweets(
+        {
+            cron: '*/10 * * * * *',
+            callback: delivery => console.log(delivery)
         },
         new DataStore(),
-        await TwitterCrawler.getPage()
+        {}
     )
 
-    // * Activity Uses username for watch timeline event
-    WatchStupidCounter.getStore().set('username', 'StupidCounter')
-
-    // * Schedule event
-    await TwitterCrawler.schedule(WatchStupidCounter)
-
+    // * Schedule activity
+    await TwitterCrawler.schedule(extractTweets)
 })()

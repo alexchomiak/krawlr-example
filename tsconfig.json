@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "rootDir": "./src",
+        "outDir": "./bin",
+        "allowJs": true,
+        "types": ["node", "promise"],
+        "target": "es2018",
+        "noImplicitAny": false,
+        "noEmit": false,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "noEmitHelpers": true,
+        "noEmitOnError": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "noUnusedLocals": false,
+        "strictNullChecks": false,
+        "noUnusedParameters": false,
+        "sourceMap": false,
+        "importHelpers": true
+    },
+    "include": ["src/**/*"],
+    "exclude": ["./node_modules", "./bin", "./coverage", "./img", "./tests", "./tmpTests"]
+}
