@@ -6,16 +6,11 @@ interface ConversationBody {
     }
 }
 
-interface Tweet {
-    id_str: string
-}
-
 export const ExtractTweetData = new NetworkAnalyzer(
     async ({ requests, responses }, ref: Activity) => {
         let data = []
 
         // * Loop through each response grabbing the tweets
-        // * from any responses associated with the conversation
         responses.forEach(res => {
             if (
                 res.url.includes(`/notifications/all`) ||
@@ -31,6 +26,6 @@ export const ExtractTweetData = new NetworkAnalyzer(
         return data
     },
     {
-        clearStash: false
+        clearStash: false // * Prevents request/response stash from clearing before next analyzer
     }
 )

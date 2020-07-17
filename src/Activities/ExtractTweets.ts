@@ -11,7 +11,6 @@ export class ExtractTweets extends Activity {
         stimulus.push(new Actor(async () => {}))
         stimulus.push(ExtractTweetData)
         stimulus.push(ExtractConversationStats)
-
         this.setLifeCycle(new LifeCycle(prep, stimulus, this))
     }
 }
